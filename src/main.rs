@@ -23,11 +23,10 @@ async fn get(
     Query(params): Query<HashMap<String, String>>,
     header_map: HeaderMap,
 ) -> Response {
-    let headers = header_map.iter().map(|(k, v)| {
-        let value = v.to_str().unwrap().to_string();
-        (k.to_string(), value )
-    }).collect();
-    //headers.iter().for_each(|(k, v)| println!("{}: {:?}", k, v));
+    let headers = header_map
+        .iter()
+        .map(|(k, v)| (k.to_string(), v.to_str().unwrap().to_string()))
+        .collect();
     let bin_response = BinResponse::new(params, headers, uri.to_string());
     Json(bin_response).into_response()
 }

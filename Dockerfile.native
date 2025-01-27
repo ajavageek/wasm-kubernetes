@@ -5,7 +5,7 @@ RUN <<EOB
 
   apt-get update
   apt-get install -y musl-tools musl-dev
-  rustup target add aarch64-unknown-linux-musl
+  rustup target add x86_64-unknown-linux-musl
 
 EOB
 
@@ -19,10 +19,10 @@ COPY src src
 
 WORKDIR /native
 
-RUN RUSTFLAGS="-C target-feature=+crt-static" cargo build --target aarch64-unknown-linux-musl --release
+RUN RUSTFLAGS="-C target-feature=+crt-static" cargo build --target x86_64-unknown-linux-musl --release
 
 FROM gcr.io/distroless/static
 
-COPY --from=build /native/target/aarch64-unknown-linux-musl/release/httpbin httpbin
+COPY --from=build /native/target/x86_64-unknown-linux-musl/release/httpbin httpbin
 
 ENTRYPOINT ["./httpbin"]
