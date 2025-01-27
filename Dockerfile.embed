@@ -1,0 +1,27 @@
+#docker build --platform=linux/arm64 -f Dockerfile.embed -t wasm-kubernetes:embed .
+FROM --platform=$BUILDPLATFORM rust:1.84-slim AS build
+
+RUN <<EOT bash
+    set -ex
+    apt-get update
+    apt-get install -y git clang
+    rustup target add wasm32-wasip1
+EOT
+
+WORKDIR /wasm
+
+COPY wasm/Cargo.toml Cargo.toml
+
+WORKDIR /
+
+COPY src src
+
+WORKDIR /wasm
+
+RUN RUSTFLAGS="--cfg wasmedge --cfg tokio_unstable" cargo build --target wasm32-wasip1 --release
+
+FROM --platform=$BUILDPLATFORM wasmedge/slim-runtime:0.13.5
+
+COPY --from=build /wasm/target/wasm32-wasip1/release/httpbin.wasm /httpbin.wasm
+
+CMD ["wasmedge", "--dir", ".:/", "/httpbin.wasm"]

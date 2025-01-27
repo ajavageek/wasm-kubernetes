@@ -1,0 +1,28 @@
+#docker build -f Dockerfile.native -t wasm-kubernetes:native .
+FROM rust:1.84-slim AS build
+
+RUN <<EOB
+
+  apt-get update
+  apt-get install -y musl-tools musl-dev
+  rustup target add aarch64-unknown-linux-musl
+
+EOB
+
+WORKDIR /native
+
+COPY native/Cargo.toml Cargo.toml
+
+WORKDIR /
+
+COPY src src
+
+WORKDIR /native
+
+RUN RUSTFLAGS="-C target-feature=+crt-static" cargo build --target aarch64-unknown-linux-musl --release
+
+FROM gcr.io/distroless/static
+
+COPY --from=build /native/target/aarch64-unknown-linux-musl/release/httpbin httpbin
+
+ENTRYPOINT ["./httpbin"]
