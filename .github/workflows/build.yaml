@@ -43,6 +43,7 @@ jobs:
           context: .
           file: Dockerfile.${{ matrix.tag }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.tag }}
+          platforms: linux/aarch64
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
