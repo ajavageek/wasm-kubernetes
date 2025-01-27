@@ -1,14 +1,19 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: regular
+---
+apiVersion: v1
 kind: Pod
 metadata:
-  name: wasm
+  name: embed
   namespace: regular
   labels:
-    arch: wasm
+    arch: embed
 spec:
   containers:
-    - name: wasm
-      image: wasm-kubernetes:wasm
+    - name: embed
+      image: ghcr.io/ajavageek/wasm-kubernetes:embed
 ---
 apiVersion: v1
 kind: Pod
@@ -20,12 +25,12 @@ metadata:
 spec:
   containers:
     - name: native
-      image: wasm-kubernetes:native
+      image: ghcr.io/ajavageek/wasm-kubernetes:native
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: wasm
+  name: embed
   namespace: regular
 spec:
   type: NodePort
@@ -33,7 +38,7 @@ spec:
     - port: 3000
       nodePort: 30000
   selector:
-    arch: wasm
+    arch: embed
 ---
 apiVersion: v1
 kind: Service

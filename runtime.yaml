@@ -12,8 +12,8 @@ metadata:
     arch: runtime
 spec:
   containers:
-    - name: native
-      image: wasm-kubernetes:runtime
+    - name: runtime
+      image: ghcr.io/ajavageek/wasm-kubernetes:runtime
   runtimeClassName: wasmedge
 ---
 apiVersion: v1
