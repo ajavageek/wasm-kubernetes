@@ -1,0 +1,16 @@
+[bash,source]
+----
+helm upgrade --install runtime vcluster/vcluster --namespace runtime --create-namespace  --values vcluster.yaml
+helm upgrade --install embed vcluster/vcluster --namespace embed --create-namespace  --values vcluster.yaml
+helm upgrade --install native vcluster/vcluster --namespace native --create-namespace  --values vcluster.yaml
+----
+
+[bash,source]
+----
+vcluster connect runtime
+kubectl apply -f runtime.yaml
+vcluster connect embed
+kubectl apply -f embed.yaml
+vcluster connect native
+kubectl apply -f native.yaml
+----
