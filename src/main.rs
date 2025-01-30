@@ -8,6 +8,15 @@ use axum::{Json, Router};
 use std::collections::HashMap;
 use tokio::net::TcpListener;
 
+#[cfg(flavor = "native")]
+const FLAVOR: &str = "native";
+
+#[cfg(flavor = "embed")]
+const FLAVOR: &str = "embed";
+
+#[cfg(flavor = "runtime")]
+const FLAVOR: &str = "runtime";
+
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
     let app = Router::new().route("/get", axum::routing::get(get));
@@ -27,6 +36,6 @@ async fn get(
         .iter()
         .map(|(k, v)| (k.to_string(), v.to_str().unwrap().to_string()))
         .collect();
-    let bin_response = BinResponse::new(params, headers, uri.to_string());
+    let bin_response = BinResponse::new(FLAVOR, params, headers, uri.to_string());
     Json(bin_response).into_response()
 }

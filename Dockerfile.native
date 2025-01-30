@@ -19,7 +19,7 @@ COPY src src
 
 WORKDIR /native
 
-RUN RUSTFLAGS="-C target-feature=+crt-static" cargo build --target aarch64-unknown-linux-musl --release
+RUN RUSTFLAGS="--cfg flavor=\"native\" -C target-feature=+crt-static" cargo build --target aarch64-unknown-linux-musl --release
 
 FROM gcr.io/distroless/static
 

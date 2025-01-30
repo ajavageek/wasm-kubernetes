@@ -18,7 +18,7 @@ COPY src src
 
 WORKDIR /wasm
 
-RUN RUSTFLAGS="--cfg wasmedge --cfg tokio_unstable" cargo build --target wasm32-wasip1 --release
+RUN RUSTFLAGS="--cfg flavor=\"runtime\" --cfg wasmedge --cfg tokio_unstable" cargo build --target wasm32-wasip1 --release
 
 FROM scratch
 
