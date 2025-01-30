@@ -12,3 +12,6 @@ url = "2.5.4"
 [[bin]]
 name = "httpbin"
 path = "../src/main.rs"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(flavor, values("native"))'] }
