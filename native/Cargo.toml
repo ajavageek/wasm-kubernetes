@@ -14,4 +14,4 @@ name = "httpbin"
 path = "../src/main.rs"
 
 [lints.rust]
-unexpected_cfgs = { level = "warn", check-cfg = ['cfg(flavor, values("native"))'] }
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(flavor, values("native", "embed", "runtime"))'] }
