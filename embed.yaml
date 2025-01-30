@@ -8,6 +8,7 @@ spec:
   containers:
     - name: embed
       image: ghcr.io/ajavageek/wasm-kubernetes:embed
+      imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service

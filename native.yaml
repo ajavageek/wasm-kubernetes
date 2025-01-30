@@ -8,6 +8,7 @@ spec:
   containers:
     - name: runtime
       image: ghcr.io/ajavageek/wasm-kubernetes:native
+      imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
