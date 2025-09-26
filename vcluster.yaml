@@ -1,4 +1,0 @@
-sync:
-  toHost:
-    ingresses:
-      enabled: true

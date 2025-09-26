@@ -1,23 +1,20 @@
 [bash,source]
 ----
-minikube start -p wasm --driver=docker --runtime=containerd
+minikube -p=wasm start --driver=docker --addons=ingress --ports=80:80 --container-runtime=containerd
 ----
 
 [bash,source]
 ----
-helm upgrade --install runtime vcluster/vcluster --namespace runtime --create-namespace  --values vcluster.yaml
-helm upgrade --install embed vcluster/vcluster --namespace embed --create-namespace  --values vcluster.yaml
-helm upgrade --install native vcluster/vcluster --namespace native --create-namespace  --values vcluster.yaml
+kubectl create namespace runtime
+kubectl create namespace embed
+kubectl create namespace native
 ----
 
 [bash,source]
 ----
-vcluster connect runtime
-kubectl apply -f runtime.yaml
-vcluster connect embed
-kubectl apply -f embed.yaml
-vcluster connect native
-kubectl apply -f native.yaml
+kubectl apply -f runtime.yaml --namespace runtime
+kubectl apply -f embed.yaml --namespace embed
+kubectl apply -f native.yaml --namespace native
 ----
 
 [bash,source]
