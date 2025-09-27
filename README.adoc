@@ -18,7 +18,7 @@ minikube tunnel -p wasm
 
 [bash,source]
 ----
-curl localhost/native/get\?foo=bar
-curl localhost/embed/get\?foo=bar
-curl localhost/runtime/get\?foo=bar
+curl localhost/native/get\?foo=bar | jq
+curl localhost/embed/get\?foo=bar | jq
+curl localhost/runtime/get\?foo=bar | jq
 ----
