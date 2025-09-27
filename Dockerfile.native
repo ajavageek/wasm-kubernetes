@@ -1,5 +1,5 @@
 #docker build -f Dockerfile.native -t wasm-kubernetes:native .
-FROM rust:1.84-slim AS build
+FROM rust:1.90-slim AS build
 
 RUN <<EOB
 

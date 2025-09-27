@@ -1,20 +1,14 @@
 [bash,source]
 ----
-minikube -p=wasm start --driver=docker --addons=ingress --ports=80:80 --container-runtime=containerd
+minikube start -p wasm --driver=docker --container-runtime=containerd --ports=80:80
+minikube addons enable ingress -p wasm
 ----
 
 [bash,source]
 ----
-kubectl create namespace runtime
-kubectl create namespace embed
-kubectl create namespace native
-----
-
-[bash,source]
-----
-kubectl apply -f runtime.yaml --namespace runtime
-kubectl apply -f embed.yaml --namespace embed
-kubectl apply -f native.yaml --namespace native
+kubectl apply -f embed.yaml
+kubectl apply -f native.yaml
+kubectl apply -f runtime.yaml
 ----
 
 [bash,source]

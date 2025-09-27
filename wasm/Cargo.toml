@@ -9,8 +9,8 @@ socket2 = { git = "https://github.com/second-state/socket2.git", branch = "v0.5.
 
 [dependencies]
 tokio = { version = "1.36", features = ["rt", "macros", "net", "time", "io-util"] }
-axum = "0.8"
-serde = { version = "1.0.217", features = ["derive"] }
+axum = "0.6"
+serde = { version = "1.0.226", features = ["derive"] }
 
 [[bin]]
 name = "httpbin"

@@ -1,5 +1,5 @@
 #docker build --platform=linux/arm64 -f Dockerfile.embed -t wasm-kubernetes:embed .
-FROM --platform=$BUILDPLATFORM rust:1.84-slim AS build
+FROM --platform=$BUILDPLATFORM rust:1.90-slim AS build
 
 RUN <<EOT bash
     set -ex

@@ -20,9 +20,12 @@ const FLAVOR: &str = "runtime";
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
     let app = Router::new().route("/get", axum::routing::get(get));
-    let listener = TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    println!("Listening on 3000");
-    axum::serve(listener, app.into_make_service())
+    let addr = "0.0.0.0:3000";
+    let tcp_listener = TcpListener::bind(addr).await.unwrap();
+    println!("listening on {}", addr);
+    axum::Server::from_tcp(tcp_listener.into_std().unwrap())
+        .unwrap()
+        .serve(app.into_make_service())
         .await
         .unwrap();
 }
